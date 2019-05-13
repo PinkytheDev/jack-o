@@ -9,4 +9,5 @@ client = commands.Bot(command_prefix = "")
 async def on_ready():
 	print(client.user.name + " is Online on everyserver of Discord.")
 	
-client.run('NTQ4NDE2NDg0NTAyNjY3MjY4.XNltEg.ugwnfNiQqPzHz4SqzNW-CO6xBdA')
+
+client.run(str(os.environ.get('BOT_TOKEN')))
