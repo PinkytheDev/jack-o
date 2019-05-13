@@ -4,7 +4,7 @@ import os
 from discord.ext import commands
 
 client = commands.Bot(command_prefix="")
-os.chdir(r'/Jacko')
+os.chdir(r'/jack-o/Jacko')
 
 @client.event
 async def on_ready():
