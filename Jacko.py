@@ -3,7 +3,7 @@ import json
 import os
 from discord.ext import commands
 
-client = commands.bot(command_prefix="")
+client = commands.Bot(command_prefix="")
 os.chdir(r'./Jacko')
 
 @client.event
@@ -51,4 +51,4 @@ async def level_up(users, user, channel):
 		await client.send_message(channel, "{} has leveled up to level {}".format(user.mention, lvl_end))
 		users[user.id]['level'] = lvl_end
 	
-client.run('NTQ4NDE2NDg0NTAyNjY3MjY4.XNltEg.ugwnfNiQqPzHz4SqzNW-CO6xBdA')
+client.run(str(os.environ.get('BOT_TOKEN')))
