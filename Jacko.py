@@ -10,12 +10,12 @@ async def on_ready():
     print("On: True, Off: False")
 
 @client.event
-async def on_member_join(member, ctx):
-    await ctx.say(f'Welcome {member} to our server! Have fun!')
+async def on_member_join(ctx, member):
+    await ctx.send(f'Welcome {member} to our server! Have fun!')
 
 @client.event
-async def on_member_remove(member, ctx):
-    await ctx.say(f'{member} had just left our server. Bye Bye {member}.')
+async def on_member_remove(ctx, member):
+    await ctx.send(f'{member} had just left our server. Bye Bye {member}.')
 
 @client.command()
 async def ping(ctx):
