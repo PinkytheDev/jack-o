@@ -1,54 +1,48 @@
 import discord
-import json
+import random
 import os
 from discord.ext import commands
 
-client = commands.Bot(command_prefix="")
-os.chdir('Jacko.py')
+client = commands.Bot(command_prefix= '')
 
 @client.event
 async def on_ready():
-	print(client.user.name + " is Online on everyserver of Discord.")
-	
-@client.event
-async def on_member_join(member):
-	with open('users.json', 'r') as f:
-		users = json.load(f)
-		
-	await update_data(users, member)
-		
-	with open('users.join', 'w') as f:
-		json.dump(users, f)
-	
-@client.event
-async def on_message(message):
-	with open('users.json', 'r') as f:
-		users = json.load(f)
-		
-	await update_data(users, message.author)
-	await add_experience(users, message.author, 5)
-	await level_up(users, message.author, message.channel)
-		
-	with open('users.join', 'w') as f:
-		json.dump(users, f)
+    print("On: True, Off: False")
 
-async def update_data(user, users):
-	if not user.id in users:
-		users[user.id] = {}
-		users[user.id]['experience'] = 0
-		users[user.id]['level'] = 1
-		
-async def add_experience(users, user, exp):
-	users[user.id]['experience'] += exp
-	
-	
-async def level_up(users, user, channel):
-	experience = users[user.id]['experience']
-	lvl_start = users[user.id]['level']
-	lvl_end = int(experience ** (1/4))
-	
-	if lvl_start < lvl_end:
-		await client.send_message(channel, "{} has leveled up to level {}".format(user.mention, lvl_end))
-		users[user.id]['level'] = lvl_end
-	
+@client.event
+async def on_member_join(member, ctx):
+    await ctx.say(f'Welcome {member} to our server! Have fun!')
+
+@client.event
+async def on_member_remove(member, ctx):
+    await ctx.say(f'{member} had just left our server. Bye Bye {member}.')
+
+@client.command()
+async def ping(ctx):
+    await ctx.say(f"Pong!, {round(client.latency * 1000)}ms")
+
+@client.command(aliases=['8ball'])
+async def _8ball(ctx, *, question):
+    responses = ["It is certain.",
+                 "It is decidedly so.",
+                 "Without a doubt",
+                 "Yes, definitely.",
+                 "You may reply on it.",
+                 "As I see it, yes.",
+                 "Most likely.",
+                 "Outlook good.",
+                 "Yes.",
+                 "Signs point to yes.",
+                 "Reply hazy, try again.",
+                 "Ask again later.",
+                 "Better not tell you now.",
+                 'Cannot predict now.',
+                 "Concentrate and ask again.",
+                 "Don't count on it.",
+                 "My reply is no.",
+                 "My sources say no.",
+                 "Outlook not so good.",
+                 "Very doubtful."]
+    await ctx.send(f"Question: {question}\nAnswer: {random.choice(responses)}")
+
 client.run(str(os.environ.get('BOT_TOKEN')))
