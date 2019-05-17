@@ -10,12 +10,12 @@ async def on_ready():
     print("On: True, Off: False")
 
 @client.event
-async def on_member_join(ctx, member):
-    await ctx.send(f'Welcome {member} to our server! Have fun!')
+async def on_member_join(member, ctx):
+    await ctx.say(f'Welcome {member} to our server! Have fun!')
 
 @client.event
-async def on_member_remove(ctx, member):
-    await ctx.send(f'{member} had just left our server. Bye Bye {member}.')
+async def on_member_remove(member, ctx):
+    await ctx.say(f'{member} had just left our server. Bye Bye {member}.')
 
 @client.command()
 async def ping(ctx):
@@ -43,6 +43,17 @@ async def _8ball(ctx, *, question):
                  "My sources say no.",
                  "Outlook not so good.",
                  "Very doubtful."]
+
     await ctx.send(f"Question: {question}\nAnswer: {random.choice(responses)}")
+
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, amount=10):
+    try:
+        await ctx.channel.purge(limit=amount)
+        await ctx.say('Message(s) Deleted!')
+    except:
+        await ctx.say("You don't have permission.")
+
 
 client.run(str(os.environ.get('BOT_TOKEN')))
