@@ -19,6 +19,7 @@ async def on_member_remove(member, ctx):
 
 @client.command()
 async def ping(ctx, member):
+    member = ctx.message.author
     await ctx.send(f"Pong!, {round(member.latency * 1000)}ms")
 
 @client.command(aliases=['8ball'])
