@@ -51,9 +51,9 @@ async def _8ball(ctx, *, question):
 async def clear(ctx, amount=10):
     try:
         await ctx.channel.purge(limit=amount)
-        await ctx.say('Message(s) Deleted!')
+        await ctx.send('Message(s) Deleted!')
     except:
-        await ctx.say("You don't have permission.")
+        await ctx.send("You don't have permission.")
 
 
 client.run(str(os.environ.get('BOT_TOKEN')))
