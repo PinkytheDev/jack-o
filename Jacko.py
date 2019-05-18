@@ -85,18 +85,18 @@ async def ban(ctx, member: discord.Member, *, reason=None):
 @client.command()
 @commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
-    banned_users = await ctx.guild.bans()
-    member_name, member_discriminator = member.split('#')
+    try:
+        banned_users = await ctx.guild.bans()
+        member_name, member_discriminator = member.split('#')
 
-    for ban_entry in banned_users:
-        user = ban_entry.user
+        for ban_entry in banned_users:
+            user = ban_entry.user
 
-        if (user.name, user.discriminator) == (member_name, member_discriminator):
-            try:
+            if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
                 await ctx.send(f"Unbanned {user.mention}")
-            except:
-                await ctx.send(f"{user.mention} isn't banned. / You don't have permission.")
+    except:
+        await ctx.send(f"Couldn't ban {user.mention}. Reason : You don't have permission. / This user isn't banned.")
 
 
 client.run(str(os.environ.get('BOT_TOKEN')))
