@@ -85,6 +85,5 @@ async def unban(ctx, *, member):
         if (user.name, user.discriminator) == (member_name, member_discriminator):
             await ctx.guild.unban(user)
             await ctx.send(f"Unbanned {user.mention}")
-            return
 
 client.run(str(os.environ.get('BOT_TOKEN')))
