@@ -100,7 +100,7 @@ async def unban(ctx, *, member):
 
 @client.command()
 async def information(ctx):
-    ctx.send('**This shows you the information of the bot not the owner.**\nOwner: Mr Noob Pink\nFriend: Buckled Flea\nIDE: Python-3.6.8\nVersion: Big Chungus\nSo get the hell away.')
+    await ctx.send('**This shows you the information of the bot not the owner.**\nOwner: Mr Noob Pink\nFriend: Buckled Flea\nIDE: Python-3.6.8\nVersion: Big Chungus\nSo get the hell away.')
 
 
 client.run(str(os.environ.get('BOT_TOKEN')))
