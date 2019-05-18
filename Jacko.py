@@ -98,5 +98,9 @@ async def unban(ctx, *, member):
     except:
         await ctx.send(f"Couldn't ban {user.mention}. Reason : You don't have permission. / This user isn't banned.")
 
+@client.command()
+async def information(ctx):
+    ctx.send('**This shows you the information of the bot not the owner.**\nOwner: Mr Noob Pink\nFriend: Buckled Flea\nIDE: Python-3.6.8\nVersion: Big Chungus\nSo get the hell away.')
+
 
 client.run(str(os.environ.get('BOT_TOKEN')))
