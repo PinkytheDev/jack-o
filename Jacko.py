@@ -74,6 +74,7 @@ async def ban(ctx, member : discord.Member, *, reason=None):
         await ctx.send(f"You don't have permission.")
 
 @client.command()
+@commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split('a')
@@ -87,7 +88,7 @@ async def unban(ctx, *, member):
                 await ctx.send(f"Unbanned {user.mention}")
                 return
             except:
-                await ctx.send("You don't have permission.")
+                await ctx.send("You don't have permission./ Failed")
 
 
 client.run(str(os.environ.get('BOT_TOKEN')))
