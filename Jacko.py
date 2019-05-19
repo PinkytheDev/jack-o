@@ -2,6 +2,7 @@ import discord
 import random
 import os
 from discord.ext import commands
+from discord import Game
 
 client = commands.Bot(command_prefix='')
 
