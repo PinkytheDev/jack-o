@@ -1,26 +1,27 @@
 import discord
 import random
 import os
-from discord.ext import commands
-from discord import Game
+from discord.ext import commands, tasks
+from itertools import cycle
 
 client = commands.Bot(command_prefix='')
+status = cycle(["Jack o' apetite L'", "GreatZardasht", "MinecraftSr", "My server 'MagicNoob Community'!", "Other bots: MagicNoob, ZardashtianBot"])
 
 
 @client.event
 async def on_ready():
-    await client.change_presence(Game=discord.Game(name='MagicNoob Community | help'))
+    change_status()
     print("On: True, Off: False")
 
-
 @client.event
-async def on_member_join(member, ctx):
-    await ctx.say(f'Welcome {member} to our server! Have fun!')
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Please specfiy an argument.')
 
 
-@client.event
-async def on_member_remove(member, ctx):
-    await ctx.say(f'{member} had just left our server. Bye Bye {member}.')
+@tasks.loop(seconds=15)
+async def change_status():
+    await client.change_presence(activity=discord.Game(next(status)))
 
 
 @client.command()
@@ -56,7 +57,7 @@ async def _8ball(ctx, *, question):
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def clear(ctx, amount=10):
+async def clear(ctx, amount : int):
     try:
         await ctx.channel.purge(limit=amount)
         await ctx.send('Message(s) Deleted!')
