@@ -10,7 +10,7 @@ status = cycle(["Jack o' apetite L'", "GreatZardasht", "MinecraftSr", "My server
 
 @client.event
 async def on_ready():
-    change_status()
+    change_status.start()
     print("On: True, Off: False")
 
 @client.event
