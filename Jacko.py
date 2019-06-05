@@ -55,7 +55,7 @@ async def _8ball(ctx, *, question):
     await ctx.send(f"Question: {question}\nAnswer: {random.choice(responses)}")
 
 
-@client.command()
+@client.command(aliases=['purge'])
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, amount : int):
     try:
