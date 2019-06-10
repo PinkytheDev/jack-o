@@ -19,7 +19,7 @@ async def on_command_error(ctx, error):
         await ctx.send('Please specfiy an argument.')
 
 
-@tasks.loop(seconds=15)
+@tasks.loop(seconds=20)
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
